@@ -10,7 +10,7 @@ def sample_user(email='test@gmail.com', password='test123'):
 
 class ModelTests(TestCase):
     def test_create_user_with_email_succesful(self):
-        email = 'test@gmail.com'
+        email = 'test45@gmail.com'
         password = 'testpass123'
         user = get_user_model().object.create_user(
             email=email,
@@ -20,7 +20,7 @@ class ModelTests(TestCase):
         self.assertTrue(user.check_password(password))
 
     def test_new_user_email_normalized(self):
-        email = 'test@GMAIL.COM'
+        email = 'testj@GMAIL.COM'
         user = get_user_model().object.create_user(email, 'test123')
         self.assertEqual(user.email, email.lower())
 
@@ -31,7 +31,7 @@ class ModelTests(TestCase):
 
     def test_create_new_superuser(self):
         user = get_user_model().object.create_superuser(
-            'test@gmail.com',
+            'teshhjt@gmail.com',
             'test123'
         )
         self.assertTrue(user.is_superuser)
@@ -45,3 +45,12 @@ class ModelTests(TestCase):
         )
 
         self.assertEqual(str(tag), tag.name)
+    
+
+    # def test_ingredient_str(self):
+    #     """ Test the ingredient string represntation """
+    #     ingrediant = models.Ingredient.objects.create(
+    #     user=sample_user(),
+    #     name='Cucumber'
+    #     )
+    #     self.assertEqual(str(ingrediant),ingrediant.name)
