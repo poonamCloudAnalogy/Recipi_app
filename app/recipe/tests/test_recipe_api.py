@@ -20,7 +20,7 @@ def sample_recipe(user, **params):
     }
     defaults.update(params)
 
-    return Recipe.objects.create(user, **defaults)
+    return Recipe.objects.create(user=user, **defaults)
 
 
 class PublicRecipeApiTests(TestCase):
@@ -60,20 +60,19 @@ class PrivateRecipeApiTest(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
 
-
     def test_recipies_limited_to_user(self):
         """ test retriving recipes for user """
-        user2=get_user_model.object.create_user(
+        user2 = get_user_model().object.create_user(
             'other@gmail.com',
             'testpass'
         )
         sample_recipe(user=user2)
         sample_recipe(user=self.user)
 
-        res=self.client.get(RECIPES_URL)
+        res = self.client.get(RECIPES_URL)
 
-        recipes=Recipe.objects.filter(user=self.user)
-        serializer =RecipeSerializer(recipes,many=True)
+        recipes = Recipe.objects.filter(user=self.user)
+        serializer = RecipeSerializer(recipes, many=True)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(res.data),1)
-        self.assertEqual(res.data,serializer.data)
+        self.assertEqual(len(res.data), 1)
+        self.assertEqual(res.data, serializer.data)

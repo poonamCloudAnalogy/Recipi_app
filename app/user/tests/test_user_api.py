@@ -56,7 +56,7 @@ class PublicUserApiTests(TestCase):
 
         ''' creating 4 using tests /
         1 for check token is created correctly /
-        2  check what happen if we provide invalid token / 
+        2  check what happen if we provide invalid token /
         3 check non existing request /
         4 if user not provide password /'''
 
